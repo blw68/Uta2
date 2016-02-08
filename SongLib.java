@@ -11,12 +11,15 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import SongLibView.Song;
+import SongLibView.SongViewController;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -34,11 +37,6 @@ public class SongLib extends Application {
 		SongLib.primaryStage = primaryStage;
 		SongLib.primaryStage.setTitle("Song Library");
 		showMainView();
-//		okButton.valueProperty.addListener(new ChangeListener<String>() {
-//			@Override public void changed(ObservableValue ov, String t, String t1) {
-//				System.out.println("In addlistener" + t + " " + t1 + " ");
-//			}
-//		});
 	}
 	
 	public void showMainView() throws IOException {
@@ -48,6 +46,30 @@ public class SongLib extends Application {
 		Scene scene = new Scene(mainLayout);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		try {
+			String title = "Ode to Joy";
+			String artist = "Beethoven";
+						
+			obsList = FXCollections.observableArrayList();
+			obsList.add(s);
+			
+			listView = new ListView(obsList);
+			
+			listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+				public void changed(ObservableValue ov, Object t, Object t1) {
+					title.setText((String) t1);
+				}
+			});
+			
+//			listView.getSelectionModel().select(0);
+//			
+			System.out.println("before set items in list view");
+			listView.setItems(obsList);
+		} catch (Exception e) {
+			System.out.println("exception in ok button event");
+			e.printStackTrace(System.out);
+		}
 	}
 	
 	public static void showAddScene() throws IOException {
@@ -62,6 +84,9 @@ public class SongLib extends Application {
 		Scene scene = new Scene (addNewSong);
 		addWindow.setScene(scene);
 		addWindow.showAndWait();
+		
+		// get text field for title
+		//String songName = titlePopup;
 	}
 	
 	public static void showEditScene() throws IOException {
@@ -96,16 +121,6 @@ public class SongLib extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
-//	public static void addItem(ActionEvent e) {
-//		Song s = new Song(title.getText(), artist.getText(), album.getText(), Integer.parseInt(year.getText()));
-//		addInAbcOrder(songList, s);
-//		
-//		title.clear();
-//		artist.clear();
-//		album.clear();
-//		year.clear();
-//	}
 	
 	/**
 	 * add newSong in correct spot in songList
