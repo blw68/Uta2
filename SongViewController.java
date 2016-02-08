@@ -26,6 +26,15 @@ public class SongViewController {
 	public ListView<Song> listView;
 
 	public ObservableList<Song> obsList;
+	
+	@FXML
+	private TextField title;
+	@FXML
+	private TextField artist;
+	@FXML
+	private TextField album;
+	@FXML
+	private TextField year;
 
 	@FXML
 	private void homeScene() throws IOException {
@@ -62,22 +71,41 @@ public class SongViewController {
 			System.out.println("year is " + year.getText());
 			
 			Song s = new Song(title.getText(), artist.getText(), album.getText(), Integer.parseInt(year.getText()));
+					
+			SongLib.addInAbcOrder(Song.songList, s);
+			
+			System.out.println("printing songList");
+			SongLib.printList(Song.songList);
+			System.out.println("after printing songList");
+			
 						
-			obsList = FXCollections.observableArrayList();
-			obsList.add(s);
+			//obsList = FXCollections.observableArrayList();
+			ObservableList<Song> obsList = FXCollections.observableArrayList(Song.songList);
 			
-			listView = new ListView(obsList);
+//			for (Song i : Song.songList) {
+//				obsList.add(i);
+//			}
 			
-			listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-				public void changed(ObservableValue ov, Object t, Object t1) {
-					title.setText((String) t1);
-				}
-			});
+			//listView.setItems(obsList);
+			
+			System.out.println("done");
+			
+//			obsList.add(s);
+//			
+//			listView = new ListView(obsList);
+//			
+//			listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+//				public void changed(ObservableValue ov, Object t, Object t1) {
+//					title.setText((String) t1);
+//				}
+//			});
 			
 //			listView.getSelectionModel().select(0);
 //			
-			System.out.println("before set items in list view");
-			listView.setItems(obsList);
+			
+//			System.out.println("before set items in list view");
+//			listView.setItems(obsList);
+//			System.out.println("after set items in list view");
 		} catch (Exception e) {
 			System.out.println("exception in ok button event");
 			e.printStackTrace(System.out);
@@ -96,12 +124,5 @@ public class SongViewController {
 //
 //	}
 
-	@FXML
-	private TextField title;
-	@FXML
-	private TextField artist;
-	@FXML
-	private TextField album;
-	@FXML
-	private TextField year;
+	
 }
