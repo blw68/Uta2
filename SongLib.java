@@ -10,12 +10,14 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import javafx.collections.ObservableList;
 import SongLibView.Song;
 import SongLibView.SongViewController;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -36,7 +38,26 @@ public class SongLib extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		SongLib.primaryStage = primaryStage;
 		SongLib.primaryStage.setTitle("Song Library");
+		
+		System.out.println("calling start");
+		ArrayList<Song> songList = new ArrayList<Song>();
+		
+		File f = new File("output.txt");
+		input(songList, f);
+		
+		printList(songList);
+		
+		//addInAbcOrder(songList, s);
+		ListView<Song> listView = new ListView<>();
+		ObservableList<Song> obsList = FXCollections.observableArrayList(songList);
+		System.out.println("printing obs list");
+		printObsList(obsList);
+		
+		listView.setItems(obsList);
+		
 		showMainView();
+		
+		System.out.println("end of start");
 	}
 	
 	public void showMainView() throws IOException {
@@ -47,25 +68,26 @@ public class SongLib extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
+		
 		try {
 			String title = "Ode to Joy";
 			String artist = "Beethoven";
 						
-			obsList = FXCollections.observableArrayList();
-			obsList.add(s);
-			
-			listView = new ListView(obsList);
-			
-			listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-				public void changed(ObservableValue ov, Object t, Object t1) {
-					title.setText((String) t1);
-				}
-			});
-			
-//			listView.getSelectionModel().select(0);
+//			obsList = FXCollections.observableArrayList();
+//			obsList.add(s);
 //			
-			System.out.println("before set items in list view");
-			listView.setItems(obsList);
+//			listView = new ListView(obsList);
+//			
+//			listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+//				public void changed(ObservableValue ov, Object t, Object t1) {
+//					title.setText((String) t1);
+//				}
+//			});
+//			
+////			listView.getSelectionModel().select(0);
+////			
+//			System.out.println("before set items in list view");
+//			listView.setItems(obsList);
 		} catch (Exception e) {
 			System.out.println("exception in ok button event");
 			e.printStackTrace(System.out);
@@ -119,6 +141,8 @@ public class SongLib extends Application {
 	}
 
 	public static void main(String[] args) {
+		// 1. create array list
+		
 		launch(args);
 	}
 	
@@ -240,6 +264,12 @@ public class SongLib extends Application {
 	public static void printList(ArrayList<Song> songList) {
 		for (int i = 0; i < songList.size(); i++) {
 			System.out.println(i + " " + songList.get(i).toString());
+		}
+	}
+	
+	public static void printObsList(ObservableList<Song> obsList) {
+		for (int i = 0; i < obsList.size(); i++) {
+			System.out.println(i + " " + obsList.get(i).toString());
 		}
 	}
 }
