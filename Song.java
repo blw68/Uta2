@@ -1,5 +1,7 @@
 package SongLibView;
 
+import java.util.ArrayList;
+
 public class Song {
 	public String songName;
 	public String artist;
@@ -20,4 +22,6 @@ public class Song {
 	public String outString() {
 		return songName + "~" + artist + "~" + album + "~" + year;
 	}
+	
+	static ArrayList<Song> songList = new ArrayList<Song>();
 }
