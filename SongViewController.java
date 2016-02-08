@@ -1,64 +1,101 @@
 package SongLibView;
 
-import java.awt.TextField;
+
 import java.io.IOException;
+
 
 import app.SongLib;
 import javafx.event.ActionEvent;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class SongViewController {
-	
+
 	private SongLib songlib;
-	
+	@FXML
+	public Button cancelButton, okButton;
+
+	@FXML 
+	public ListView<Song> listView;
+
+	public ObservableList<Song> obsList;
+
 	@FXML
 	private void homeScene() throws IOException {
 		songlib.showMainView();
 	}
-	
+
 	@FXML
 	private void addButton() throws IOException {
-		// add button on main window pressed
-		SongLib.showAddScene();		
+		SongLib.showAddScene();
 	}
-	
+
 	@FXML
 	private void editButton() throws IOException {
-		// edit button on main window pressed
 		SongLib.showEditScene();
 	}
-	
+
 	@FXML
 	private void deleteButton() throws IOException {
-		// delete button on main window pressed
 		SongLib.showDeleteScene();
 	}
-	
-	@FXML
-	private void okButton() throws IOException {
-		// when OK button pressed
-		System.out.println("In ok button method in SongViewController");
-		//String songName = title.getText();
-		String artistStr = artist.getText();
-		String albumStr = album.getText();
-		int yearInt = Integer.parseInt(year.getText());
-		
-		System.out.println(title.getText() + " " + artistStr + " " + albumStr + " " + yearInt);
-		
-		//SongLib.addInAbcOrder(songList, new Song(songName, artistStr, albumStr, yearInt));
-	}
-	
 	@FXML
 	private void cancelButtonEvent(ActionEvent event) {
 		Stage stage = (Stage) cancelButton.getScene().getWindow();
-	    stage.close();
+		stage.close();
 	}
-	
+
 	@FXML
-	private Button addButton, editBitton, deleteButton, cancelButton, okButton;
-	
+	private void okButtonEvent(ActionEvent event) {
+		try {
+			System.out.println("ok button pressed");
+			System.out.println("title is " + title.getText());
+			System.out.println("artist is " + artist.getText());
+			System.out.println("album is " + album.getText());
+			System.out.println("year is " + year.getText());
+			
+			Song s = new Song(title.getText(), artist.getText(), album.getText(), Integer.parseInt(year.getText()));
+						
+			obsList = FXCollections.observableArrayList();
+			obsList.add(s);
+			
+			listView = new ListView(obsList);
+			
+			listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+				public void changed(ObservableValue ov, Object t, Object t1) {
+					title.setText((String) t1);
+				}
+			});
+			
+//			listView.getSelectionModel().select(0);
+//			
+			System.out.println("before set items in list view");
+			listView.setItems(obsList);
+		} catch (Exception e) {
+			System.out.println("exception in ok button event");
+			e.printStackTrace(System.out);
+		}
+
+		// close pop up window just like cancel does
+		Stage stage = (Stage) okButton.getScene().getWindow();
+		stage.close();
+	}
+
+//	@FXML
+//	private void TitleAction(ActionEvent event) {
+//		//		TextField source = (TextField)event.getSource();
+//		//		System.out.println("You entered " + source.getText());
+//
+//
+//	}
+
 	@FXML
 	private TextField title;
 	@FXML
@@ -67,5 +104,4 @@ public class SongViewController {
 	private TextField album;
 	@FXML
 	private TextField year;
-	
 }
