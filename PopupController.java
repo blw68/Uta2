@@ -21,7 +21,6 @@ public class PopupController {
 	private TextField year;
 	@FXML
 	public Button cancelButton, okButton;
-	//public ObservableList<Song> obsList;
 	
 	@FXML
 	private void cancelButtonEvent(ActionEvent event) {
@@ -42,38 +41,7 @@ public class PopupController {
 					
 			Song.addInAbcOrder(Song.songList, s);
 			Song.output(Song.songList);
-			//System.out.println("printing songList");
-			//Song.printList(Song.songList);
-			//System.out.println("after printing songList");
-			/*
-			ListView<Song> listView = new ListView<>();
-			obsList = FXCollections.observableArrayList();
-			ObservableList<Song> obsList = FXCollections.observableArrayList(Song.songList);
-			listView.setItems(obsList);*/
-//			for (Song i : Song.songList) {
-//				obsList.add(i);
-//			}
 			
-			//listView.setItems(obsList);
-			
-			//System.out.println("done");
-			
-//			obsList.add(s);
-//			
-//			listView = new ListView(obsList);
-//			
-//			listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-//				public void changed(ObservableValue ov, Object t, Object t1) {
-//					title.setText((String) t1);
-//				}
-//			});
-			
-//			listView.getSelectionModel().select(0);
-//			
-			
-//			System.out.println("before set items in list view");
-//			listView.setItems(obsList);
-//			System.out.println("after set items in list view");
 		} catch (Exception e) {
 			System.out.println("exception in ok button event");
 			e.printStackTrace(System.out);
@@ -83,13 +51,4 @@ public class PopupController {
 		Stage stage = (Stage) okButton.getScene().getWindow();
 		stage.close();
 	}
-
-//	@FXML
-//	private void TitleAction(ActionEvent event) {
-//		//		TextField source = (TextField)event.getSource();
-//		//		System.out.println("You entered " + source.getText());
-//
-//
-//	}
-
 }
