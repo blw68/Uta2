@@ -21,14 +21,14 @@ public class SongViewController {
 
 	private SongLib songlib;
 	
-	File f = new File("output.txt");
+	
 	
 	
 	@FXML 
-	public ListView<String> listView;
+	public ListView<Song> listView;
 
-	ObservableList<String> obsList = FXCollections.observableArrayList("a, b, c, 123", "asdsa,asdasda,asdasd, 1635","rtert, erterter, terterte, 2016");
-	
+	//ObservableList<String> obsList = FXCollections.observableArrayList("a, b, c, 123", "asdsa,asdasda,asdasd, 1635","rtert, erterter, terterte, 2016");
+	ObservableList<Song> obsList = FXCollections.observableArrayList(Song.songList);
 
 	@FXML
 	private void homeScene() throws IOException {
@@ -51,12 +51,11 @@ public class SongViewController {
 	}
 	
 	@FXML
-	public void initialize(){
-		
+	private void initialize(){
+		File f = new File("output.txt");
 		Song.input(Song.songList, f);
 		listView.setItems(obsList);
-		//Song.printList(Song.songList);
+		Song.printList(Song.songList);
 		//Song.printObsList(obsList);
 	}
-	
 }
