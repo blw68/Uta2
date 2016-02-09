@@ -21,11 +21,13 @@ public class SongViewController {
 
 	private SongLib songlib;
 	
-
+	File f = new File("output.txt");
+	
+	
 	@FXML 
-	public ListView<Song> listView;
+	public ListView<String> listView;
 
-	ObservableList<Song> obsList = FXCollections.observableArrayList(Song.songList);
+	ObservableList<String> obsList = FXCollections.observableArrayList("a, b, c, 123", "asdsa,asdasda,asdasd, 1635","rtert, erterter, terterte, 2016");
 	
 
 	@FXML
@@ -47,17 +49,14 @@ public class SongViewController {
 	private void deleteButton() throws IOException {
 		SongLib.showDeleteScene();
 	}
-	/*ListView<Song> listView = new ListView<>();
-	ObservableList<Song> obsList = FXCollections.observableArrayList(songList);
-	System.out.println("printing obs list");
-	Song.printObsList(obsList);
-	listView.setItems(obsList);*/
+	
+	@FXML
 	public void initialize(){
-		File f = new File("output.txt");
+		
 		Song.input(Song.songList, f);
 		listView.setItems(obsList);
-		Song.printList(Song.songList);
-		Song.printObsList(obsList);
+		//Song.printList(Song.songList);
+		//Song.printObsList(obsList);
 	}
 	
 }
