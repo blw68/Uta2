@@ -71,24 +71,7 @@ public class SongLib extends Application {
 		
 		
 		try {
-			String title = "Ode to Joy";
-			String artist = "Beethoven";
-						
-//			obsList = FXCollections.observableArrayList();
-//			obsList.add(s);
-//			
-//			listView = new ListView(obsList);
-//			
-//			listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-//				public void changed(ObservableValue ov, Object t, Object t1) {
-//					title.setText((String) t1);
-//				}
-//			});
-//			
-////			listView.getSelectionModel().select(0);
-////			
-//			System.out.println("before set items in list view");
-//			listView.setItems(obsList);
+			
 		} catch (Exception e) {
 			System.out.println("exception in ok button event");
 			e.printStackTrace(System.out);
@@ -108,8 +91,6 @@ public class SongLib extends Application {
 		addWindow.setScene(scene);
 		addWindow.showAndWait();
 		
-		// get text field for title
-		//String songName = titlePopup;
 	}
 	
 	public static void showEditScene() throws IOException {
@@ -142,8 +123,6 @@ public class SongLib extends Application {
 	}
 
 	public static void main(String[] args) {
-		// 1. create array list
-		
 		launch(args);
 	}
 }
