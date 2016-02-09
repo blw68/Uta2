@@ -32,7 +32,8 @@ public class Song {
 		return songName + "~" + artist + "~" + album + "~" + year;
 	}
 	
-	static ArrayList<Song> songList = new ArrayList<Song>();
+	public static ArrayList<Song> songList = new ArrayList<Song>();
+	
 	/**
 	 * add newSong in correct spot in songList
 	 * @param songList list of songs, should always be in abc order
@@ -154,7 +155,7 @@ public class Song {
 		}
 	}
 	
-	public static void printObsList(ObservableList<Song> obsList) {
+	public static void printObsList(ObservableList<String> obsList) {
 		for (int i = 0; i < obsList.size(); i++) {
 			System.out.println(i + " " + obsList.get(i).toString());
 		}
